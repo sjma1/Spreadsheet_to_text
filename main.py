@@ -15,3 +15,5 @@ if __name__ == '__main__':
     read_choice = functions.get_read_choice()
     
     functions.write_xlsx_to_txt(spreadsheet, text_directory, read_choice)
+    
+    print('COMPLETE')

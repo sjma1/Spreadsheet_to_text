@@ -25,16 +25,25 @@ def write_xlsx_to_txt(spreadsheet_location, txt_directory, read_choice):
     workbook = openpyxl.load_workbook(spreadsheet_location)
 
     for sheet in workbook.worksheets:
-        os.chdir(os.makedirs(txt_directory + '\\' + sheet.title))
+        new_path = txt_directory + '\\' + sheet.title
+        os.makedirs(new_path)
+        os.chdir(new_path)
         
         if read_choice == 'r':
-            sections = sheet.rows
+            sections = []
+            for r in sheet.rows:
+                sections.append(r)
             filename = 'row'
         else:
-            sections =  sheet.columns
+            sections =  []
+            for c in sheet.columns:
+                sections.append(c)
             filename = 'column'
+            
         for index in range(len(sections)):
             new_file = open(filename + str(index + 1) + '.txt', 'w')
-            
+            for item in sections[index]:
+                new_file.write(str(item.value) + '\t')
+            new_file.close()
         
 
